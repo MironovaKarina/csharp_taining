@@ -68,6 +68,7 @@
     <Compile Include="AccountData.cs" />
     <Compile Include="AddContactTest.cs" />
     <Compile Include="Circle.cs" />
+    <Compile Include="ContactData.cs" />
     <Compile Include="Figure.cs" />
     <Compile Include="GroupData.cs" />
     <Compile Include="Square.cs" />

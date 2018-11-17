@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
-namespace SeleniumTests
+namespace addressbook_web_tests
 {
     [TestFixture]
     public class AddContact
@@ -42,9 +42,9 @@ namespace SeleniumTests
         [Test]
         public void TheAddContactTest()
         {
-            GoToHomePage();
+            Login(new AccountData("admin", "secret"));
             InitContactCreation();
-            FillContactInformation();
+            FillContactInformation(new ContactData("Karina", "Mironova"));
             SubmitContactCreation();
             Logout();
         }
@@ -59,21 +59,13 @@ namespace SeleniumTests
             driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).Click();
         }
 
-        private void FillContactInformation()
+        private void FillContactInformation(ContactData contact)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys("Karina");
+            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
             driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys("Mironova");
-            driver.FindElement(By.Name("address")).Clear();
-            driver.FindElement(By.Name("address")).SendKeys("adres123");
-            driver.FindElement(By.Name("email")).Clear();
-            driver.FindElement(By.Name("email")).SendKeys("karina.mironova@kaspersky.com");
-            driver.FindElement(By.Name("email2")).Clear();
-            driver.FindElement(By.Name("email2")).SendKeys("karina.mironova@kaspersky.com");
-            driver.FindElement(By.Name("email3")).Clear();
-            driver.FindElement(By.Name("email3")).SendKeys("karina.mironova@kaspersky.com");
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
         }
 
         private void InitContactCreation()
@@ -81,15 +73,15 @@ namespace SeleniumTests
             driver.FindElement(By.LinkText("add new")).Click();
         }
 
-        private void GoToHomePage()
+        private void Login(AccountData account)
         {
             driver.Navigate().GoToUrl(baseURL);
             driver.FindElement(By.Name("user")).Click();
             driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys("admin");
+            driver.FindElement(By.Name("user")).SendKeys(account.Username);
             driver.FindElement(By.Name("pass")).Click();
             driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys("secret");
+            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
             driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).Click();
         }
 
