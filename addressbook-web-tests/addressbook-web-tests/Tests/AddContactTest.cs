@@ -13,12 +13,11 @@ namespace addressbook_web_tests
         [Test]
         public void TheAddContactTest()
         {
-            GoToHomePage();
-            Login(new AccountData("admin", "secret"));
-            InitContactCreation();
-            FillContactInformation(new ContactData("Karina", "Mironova"));
-            SubmitContactCreation();
-            Logout();
+            app.Navigator.GoToHomePage();
+            app.Cont
+                .InitContactCreation()
+                .FillContactInformation(new ContactData("Karina", "Mironova"))
+                .SubmitContactCreation();
         }
     }
 }
