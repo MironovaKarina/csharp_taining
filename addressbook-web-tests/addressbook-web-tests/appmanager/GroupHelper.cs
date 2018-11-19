@@ -92,7 +92,7 @@ namespace addressbook_web_tests
         }
         public GroupHelper ReturnToGroupsPage()
         {
-            driver.FindElement(By.LinkText("group page")).Click();
+            driver.FindElement(By.XPath("(//*[@id='nav']/ul/li[3]/a)")).Click();
             driver.FindElement(By.LinkText("Logout")).Click();
             return this;
         }
