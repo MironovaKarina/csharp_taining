@@ -14,7 +14,7 @@ namespace addressbook_web_tests
         {
             ContactData newData = new ContactData("WWW", "YYY");
 
-            app.Cont.Modify(1, newData);
+            app.Cont.Modify(newData);
         }
     }
 }

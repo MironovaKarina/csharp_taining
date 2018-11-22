@@ -15,10 +15,10 @@ namespace addressbook_web_tests
         {
         }
 
-        public ContactHelper Modify(int p, ContactData newData)
+        public ContactHelper Modify(ContactData newData)
         {
             manager.Navigator.GoToHomePage();
-            SelectContact(p);
+            SelectContact(1);
             EditContact();
             FillContactInformation(newData);
             UpdateContact();
@@ -43,6 +43,7 @@ namespace addressbook_web_tests
             SelectContact(p);
             RemoveContact();
             driver.SwitchTo().Alert().Accept();
+            manager.Navigator.GoToHomePage();
             return this;
         }
 
