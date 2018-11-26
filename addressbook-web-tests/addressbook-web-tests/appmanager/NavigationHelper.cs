@@ -23,7 +23,7 @@ namespace addressbook_web_tests
         }
         public void GoToGroupsPage()
         {
-            driver.FindElement(By.LinkText("groups")).Click();
+            driver.FindElement(By.XPath("(//*[@id='nav']/ul/li[3]/a)")).Click();
         }
     }
 }
