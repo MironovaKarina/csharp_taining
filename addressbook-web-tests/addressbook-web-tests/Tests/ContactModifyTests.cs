@@ -7,13 +7,12 @@ using NUnit.Framework;
 
 namespace addressbook_web_tests
 {
-    public class ContactModifyTests : TestBase
+    public class ContactModifyTests : AuthTestBase
     {
         [Test]
         public void ContactModificationTest()
         {
-            ContactData newData = new ContactData("WWW", "YYY");
-
+                ContactData newData = new ContactData("WWW", "YYY");
             app.Cont.Modify(newData);
         }
     }

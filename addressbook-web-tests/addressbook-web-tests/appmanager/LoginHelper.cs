@@ -17,14 +17,41 @@ namespace addressbook_web_tests
         }
         public void Login(AccountData account)
         {
+            if (IsLoggedIn())
+            {
+                if (IsLoggedIn(account))
+                {
+                    return;
+                }
+                Logout();
+            }
             Type(By.Name("user"), account.Username);
             Type(By.Name("pass"), account.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
-       /* public static implicit operator LoginHelper(NavigationHelper v)
+        public bool IsLoggedIn(AccountData account)
         {
-            throw new NotImplementedException();
-        }  */
+            return IsLoggedIn()
+                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("B")).Text == "(" + account.Username + ")";
+        }
+
+        public bool IsLoggedIn()
+        {
+            return IsElementPresent(By.Name("logout"));
+        }
+
+        public void Logout()
+        {
+            if (IsLoggedIn())
+            {
+                driver.FindElement(By.LinkText("Logout")).Click();
+            }
+        }
+
+        /* public static implicit operator LoginHelper(NavigationHelper v)
+         {
+             throw new NotImplementedException();
+         }  */
     }
 }
