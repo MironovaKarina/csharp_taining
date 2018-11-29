@@ -13,7 +13,13 @@ namespace addressbook_web_tests
         [Test]
         public void ContactDeleteTest()
         {
-            app.Cont.Remove(1);
+            List<ContactData> oldContact = app.Cont.GetContactist();
+
+            app.Cont.Remove(0);
+
+            List<ContactData> newContact = app.Cont.GetContactist();
+            oldContact.RemoveAt(0);
+            Assert.AreEqual(oldContact, newContact);
 
         }
     }

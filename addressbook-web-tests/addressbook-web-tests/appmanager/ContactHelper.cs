@@ -25,6 +25,18 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public List<ContactData> GetContactist()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                contacts.Add(new ContactData(element.Text));
+            }
+            return contacts;
+        }
+
         public ContactHelper UpdateContact()
         {
             driver.FindElement(By.XPath("(//*[@id='content']/form[1]/input[1])")).Click();
