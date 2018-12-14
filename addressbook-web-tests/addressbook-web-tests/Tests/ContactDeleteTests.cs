@@ -7,17 +7,17 @@ using NUnit.Framework;
 
 namespace addressbook_web_tests
 {
-    public class ContactDeleteTests : TestBase
+    public class ContactDeleteTests : AuthTestBase
     {
 
         [Test]
         public void ContactDeleteTest()
         {
-            List<ContactData> oldContact = app.Cont.GetContactist();
+            List<ContactData> oldContact = app.Cont.GetContactlist();
 
-            app.Cont.Remove(0);
+            app.Cont.Remove(1);
 
-            List<ContactData> newContact = app.Cont.GetContactist();
+            List<ContactData> newContact = app.Cont.GetContactlist();
             oldContact.RemoveAt(0);
             Assert.AreEqual(oldContact, newContact);
 

@@ -14,11 +14,11 @@ namespace addressbook_web_tests
         {
                 ContactData newData = new ContactData("WWW", "YYY");
 
-            List<ContactData> oldContact = app.Cont.GetContactist();
+            List<ContactData> oldContact = app.Cont.GetContactlist();
 
             app.Cont.Modify(newData);
 
-            List<ContactData> newContact = app.Cont.GetContactist();
+            List<ContactData> newContact = app.Cont.GetContactlist();
             oldContact[0].lastname = newData.lastname;
             oldContact.Sort();
             newContact.Sort();

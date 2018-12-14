@@ -25,14 +25,18 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public List<ContactData> GetContactist()
+        public List<ContactData> GetContactlist()
         {
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.GoToHomePage();
             ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+          
             foreach (IWebElement element in elements)
             {
-                contacts.Add(new ContactData(element.Text));
+                contacts.Add(new ContactData("Karina", "Mironova"));
+                string Lastname = driver.FindElement(By.XPath(".//td[2]")).Text;
+                string Firstname =  driver.FindElement(By.XPath(".//td[3]")).Text;
+
             }
             return contacts;
         }

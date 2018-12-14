@@ -44,11 +44,11 @@ namespace addressbook_web_tests
 
         public int CompareTo(ContactData other)
         {
-            if (Object.ReferenceEquals(other, null))
+            if (Object.ReferenceEquals(other.lastname, lastname))
             {
-                return 1;
+                return firstname.CompareTo(other.firstname);
             }
-            return lastname.CompareTo(other.lastname) + firstname.CompareTo(other.firstname);
+            return lastname.CompareTo(other.lastname);
         }
 
         public string Firstname
