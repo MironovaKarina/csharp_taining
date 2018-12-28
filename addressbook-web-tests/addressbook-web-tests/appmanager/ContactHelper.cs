@@ -26,19 +26,29 @@ namespace addressbook_web_tests
             return this;
         }
 
+        private List<ContactData> contactCache = null;
+
         public List<ContactData> GetContactlist()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-          
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-                string Lastname = driver.FindElement(By.XPath(".//td[2]")).Text;
-                string Firstname =  driver.FindElement(By.XPath(".//td[3]")).Text;
-                contacts.Add(new ContactData(Lastname, Firstname));
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+
+                foreach (IWebElement element in elements)
+                {
+                    string Lastname = driver.FindElement(By.XPath(".//td[2]")).Text;
+                    string Firstname = driver.FindElement(By.XPath(".//td[3]")).Text;
+
+                    contactCache.Add(new ContactData(Lastname, Firstname)
+                    {
+
+                        contactID = element.FindElement(By.Name("selected[]")).GetAttribute("value")
+                    });
+                }
             }
-            return contacts;
+            return new List<ContactData>(contactCache);
         }
 
         public ContactHelper UpdateContact()
@@ -66,6 +76,7 @@ namespace addressbook_web_tests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("(//*[@id='content']/form[2]/div[2])")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -89,6 +100,7 @@ namespace addressbook_web_tests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).Click();
+            contactCache = null;
             return this;
         }
     }

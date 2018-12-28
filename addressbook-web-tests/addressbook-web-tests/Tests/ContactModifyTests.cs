@@ -15,12 +15,13 @@ namespace addressbook_web_tests
                 ContactData newData = new ContactData("XXX", "YYY");
 
             List<ContactData> oldContact = app.Cont.GetContactlist();
+            ContactData oldData = oldContact[0];
 
             app.Cont.Modify(0,newData);
 
             List<ContactData> newContact = app.Cont.GetContactlist();
-            oldContact[0].lastname = newData.lastname;
-            oldContact[0].firstname = newData.firstname;
+            oldContact[0].Lastname = newData.Lastname;
+            oldContact[0].Firstname = newData.Firstname;
             oldContact.Sort();
             newContact.Sort();
             Assert.AreEqual(oldContact, newContact);
