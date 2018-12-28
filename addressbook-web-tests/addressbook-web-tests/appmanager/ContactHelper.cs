@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using NUnit.Framework;
 
 namespace addressbook_web_tests
 {
@@ -15,10 +16,10 @@ namespace addressbook_web_tests
         {
         }
 
-        public ContactHelper Modify(ContactData newData)
+        public ContactHelper Modify(int p, ContactData newData)
         {
             manager.Navigator.GoToHomePage();
-            SelectContact(1);
+            SelectContact(p);
             EditContact();
             FillContactInformation(newData);
             UpdateContact();
@@ -33,10 +34,9 @@ namespace addressbook_web_tests
           
             foreach (IWebElement element in elements)
             {
-                contacts.Add(new ContactData("Karina", "Mironova"));
                 string Lastname = driver.FindElement(By.XPath(".//td[2]")).Text;
                 string Firstname =  driver.FindElement(By.XPath(".//td[3]")).Text;
-
+                contacts.Add(new ContactData(Lastname, Firstname));
             }
             return contacts;
         }
@@ -82,8 +82,8 @@ namespace addressbook_web_tests
         }
         public ContactHelper FillContactInformation(ContactData contact)
         {
-            Type(By.Name("firstname"), contact.Firstname);
             Type(By.Name("lastname"), contact.Lastname);
+            Type(By.Name("firstname"), contact.Firstname);
             return this;
         }
         public ContactHelper SubmitContactCreation()

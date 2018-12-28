@@ -12,7 +12,7 @@ namespace addressbook_web_tests
         public string lastname = "";
   //      public string fi = String.Join(firstname, lastname);
 
-        public ContactData(string firstname, string lastname)
+        public ContactData(string lastname, string firstname)
         {
             this.firstname = firstname;
             this.lastname = lastname;
@@ -28,7 +28,7 @@ namespace addressbook_web_tests
             {
                 return true;
             }
-            return firstname == other.firstname && lastname==other.lastname;
+            return lastname==other.lastname && firstname == other.firstname;
         }
 
         public override int GetHashCode()
@@ -44,11 +44,20 @@ namespace addressbook_web_tests
 
         public int CompareTo(ContactData other)
         {
-            if (Object.ReferenceEquals(other.lastname, lastname))
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+
+              if  (Object.ReferenceEquals(other.lastname, lastname))
+            {
+                return lastname.CompareTo(other.lastname);
+            }
+            else
             {
                 return firstname.CompareTo(other.firstname);
             }
-            return lastname.CompareTo(other.lastname);
+            
         }
 
         public string Firstname
