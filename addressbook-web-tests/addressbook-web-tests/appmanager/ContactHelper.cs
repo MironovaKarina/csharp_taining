@@ -60,6 +60,7 @@ namespace addressbook_web_tests
         public ContactHelper EditContact()
         {
             driver.FindElement(By.XPath("(//*[@id='maintable']/tbody/tr[2]/td[8]/a/img)")).Click();
+            contactCache = null;
             return this;
         }
 
