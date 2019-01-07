@@ -42,7 +42,7 @@ namespace addressbook_web_tests
 
         public override string ToString()
         {
-            return Lastname+Firstname;
+            return "lastname= " + Lastname + "firstname= " + Firstname;
         }
 
         public int CompareTo(ContactData other)
