@@ -10,6 +10,8 @@ namespace addressbook_web_tests
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
+        private string allContent;
+        private string allEmails;
 
         //      public string fi = String.Join(firstname, lastname);
 
@@ -68,6 +70,9 @@ namespace addressbook_web_tests
         public string HomePhone { get; set; }
         public string MobilePhone { get; set; }
         public string WorkPhone { get; set; }
+        public string Email1 { get; set; }
+        public string Email2 { get; set; }
+        public string Email3 { get; set; }
         public string AllPhones
         {
             get {
@@ -85,13 +90,81 @@ namespace addressbook_web_tests
             }
         }
 
-        private string CleanUp(string phone)
+        public string AllContent
+        {
+            get
+            {
+                if (allContent != null)
+                {
+                    return allContent;
+                }
+                else
+                {
+                    return (Lastname +' '+  Firstname + "\r\n"  + Address + "\r\n" + "\r\n" + CleanUp(DetailedHomePhone(HomePhone)) + CleanUp(DetailedMobilePhone(MobilePhone)) + CleanUp(DetailedWorkPhone(WorkPhone)) + "\r\n" + AllEmails).Trim();
+                }
+            }
+            set
+            {
+                allContent = value;
+            }
+        }
+
+        public string AllEmails
+        {
+            get
+            {
+                if (allEmails !=null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return (Email1 + "\r\n" + Email2 + "\r\n" + Email3 + "\r\n").Trim();
+                }
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
+
+        public string DetailedHomePhone (string homephone)
+        {
+            if (homephone == null || homephone == "")
+            {
+                return "";
+            }
+            return ("H: " + homephone);
+        }
+
+
+        public string DetailedMobilePhone(string mobilephone)
+        {
+            if (mobilephone == null || mobilephone == "")
+            {
+                return "";
+            }
+            return ("M: " + mobilephone);
+        }
+
+
+        public string DetailedWorkPhone(string workphone)
+        {
+            if (workphone == null || workphone == "")
+            {
+                return "";
+            }
+            return ("W: " + workphone);
+        }
+
+
+        public string CleanUp(string phone)
         {
             if (phone == null || phone == "")
             {
                 return "";
             }
-           return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+           return Regex.Replace(phone, "[-()]", "") + "\r\n";
         }
     }
 }

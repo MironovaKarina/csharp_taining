@@ -37,6 +37,14 @@ namespace addressbook_web_tests
 
         }
 
+        public string GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            ShowDetails(index);
+            string content = driver.FindElement(By.Id("content")).Text;
+            return content;
+        }
+
         internal ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -47,14 +55,21 @@ namespace addressbook_web_tests
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
 
             return new ContactData(firstName, lastName)
             {
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
-                WorkPhone = workPhone
-            };
+                WorkPhone = workPhone,
+                Email1 = email1,
+                Email2 = email2,
+                Email3 = email3
+        };
 
         }
 
@@ -144,6 +159,12 @@ namespace addressbook_web_tests
         {
             driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).Click();
             contactCache = null;
+            return this;
+        }
+
+        public ContactHelper ShowDetails(int index)
+        {
+            driver.FindElement(By.XPath("(/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[7]/a/img)")).Click();
             return this;
         }
 
