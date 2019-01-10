@@ -1,9 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace addressbook_web_tests
 {
@@ -24,9 +28,38 @@ namespace addressbook_web_tests
             return groups;
         }
 
-   
+        /* public static IEnumerable<GroupData> GroupDataFomCsvFile()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            string[] lines =  File.ReadAllLines(@"group.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                groups.Add(new GroupData(parts[0])
+                {
+                    Header = parts[1],
+                    Footer = parts[2]
+                });
+            }
+            return groups;
+        }  */
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+
+        public static IEnumerable<GroupData> GroupDataFomXmlFile()
+        {
+            return (List<GroupData>) 
+                new XmlSerializer(typeof(List<GroupData>))
+                   .Deserialize(new StreamReader(@"group.xml"));
+             
+        }
+
+        public static IEnumerable<GroupData> GroupDataFomJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"group.json"));
+        }
+
+
+        [Test, TestCaseSource("GroupDataFomJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
           /*  GroupData group = new GroupData("kkk");

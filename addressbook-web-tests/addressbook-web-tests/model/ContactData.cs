@@ -15,6 +15,9 @@ namespace addressbook_web_tests
 
         //      public string fi = String.Join(firstname, lastname);
 
+        public ContactData()
+        {
+        }
         public ContactData(string lastname, string firstname)
         {
             Firstname = firstname;
@@ -52,7 +55,7 @@ namespace addressbook_web_tests
                 return 1;
             }
 
-              if  (Object.ReferenceEquals(other.Lastname, Lastname))
+            if (Object.ReferenceEquals(other.Lastname, Lastname))
             {
                 return Lastname.CompareTo(other.Lastname);
             }
