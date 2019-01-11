@@ -8,6 +8,7 @@ using NUnit.Framework;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace addressbook_web_tests
 {
@@ -79,22 +80,36 @@ namespace addressbook_web_tests
             Assert.AreEqual(oldGroups, newGroups);
 
         }
-      /*  [Test]
-        public void EmptyGroupCreationTest()
+        /*  [Test]
+          public void EmptyGroupCreationTest()
+          {
+              GroupData group = new GroupData("");
+              group.Header = "";
+              group.Footer = "";
+
+              List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+              app.Groups.Create(group);
+
+              Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+
+              List<GroupData> newGroups = app.Groups.GetGroupList();
+              Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+
+          } */
+
+        [Test]
+        public void TestDBConnectivity()
         {
-            GroupData group = new GroupData("");
-            group.Header = "";
-            group.Footer = "";
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUi = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-
-            app.Groups.Create(group);
-
-            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
-
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
-
-        } */
+            start = DateTime.Now;
+            List<GroupData> fromDb = GroupData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+        }
     }
 }
