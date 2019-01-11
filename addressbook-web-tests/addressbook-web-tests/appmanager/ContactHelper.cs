@@ -71,7 +71,7 @@ namespace addressbook_web_tests
                 Email1 = email1,
                 Email2 = email2,
                 Email3 = email3
-        };
+            };
 
         }
 
