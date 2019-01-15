@@ -26,6 +26,15 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+        }
+
         private List<GroupData> groupCache = null;
 
         public List<GroupData> GetGroupList()
@@ -92,6 +101,14 @@ namespace addressbook_web_tests
                 driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
                 return this;
         }
+
+        public GroupHelper SelectGroup(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
+            return this;
+        }
+
+
         public GroupHelper InitNewGroup()
         {
             driver.FindElement(By.Name("new")).Click();

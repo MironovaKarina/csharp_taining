@@ -68,5 +68,14 @@ namespace addressbook_web_tests
             }
         }
 
+        public List<ContactData> GetContacts()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts
+                            from gcr in db.GCR.Where(p => p.GroupId == Id && p.ContactId = c.id)
+                              select c).ToList();
+            }
+        }
     }
 }
