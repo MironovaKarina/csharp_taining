@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium;
 using NUnit.Framework;
 
 namespace addressbook_web_tests
@@ -19,6 +20,11 @@ namespace addressbook_web_tests
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
             GroupData oldData = oldGroups[0];
+
+            if (!app.Groups.IsElementPresent(By.Name("selected[]")))
+            {
+                app.Groups.Create(newData);
+            }
 
             app.Groups.Modify(0, newData);
 

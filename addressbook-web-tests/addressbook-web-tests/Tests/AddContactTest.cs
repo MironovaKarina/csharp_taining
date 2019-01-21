@@ -29,19 +29,17 @@ namespace addressbook_web_tests
         {
             List<ContactData> oldContact = app.Cont.GetContactlist();
 
-            app.Navigator.GoToHomePage();
-            app.Cont
-                .InitContactCreation()
-                .FillContactInformation(contact)
-                .SubmitContactCreation();
+            app.Cont.Add(contact);
 
-        /*    List<ContactData> newContact = app.Cont.GetContactlist();
-            oldContact.Add(contact);
-            oldContact.Sort();
-            newContact.Sort();
-            Assert.AreEqual(oldContact, newContact); */
+            /*    List<ContactData> newContact = app.Cont.GetContactlist();
+                oldContact.Add(contact);
+                oldContact.Sort();
+                newContact.Sort();
+                Assert.AreEqual(oldContact, newContact); */
 
         }
+
+       
 
         public static IEnumerable<ContactData> ContactDataFomXmlFile()
         {

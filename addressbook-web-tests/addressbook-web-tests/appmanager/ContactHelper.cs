@@ -128,6 +128,14 @@ namespace addressbook_web_tests
             UpdateContact();
             return this;
         }
+        public ContactHelper Add(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+                InitContactCreation();
+                FillContactInformation(contact);
+                SubmitContactCreation();
+            return this;
+        }
 
         private List<ContactData> contactCache = null;
 

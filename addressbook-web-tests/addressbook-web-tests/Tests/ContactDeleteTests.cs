@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium;
 using NUnit.Framework;
 
 namespace addressbook_web_tests
@@ -13,6 +14,12 @@ namespace addressbook_web_tests
         [Test]
         public void ContactDeleteTest()
         {
+            ContactData newcontact = new ContactData("Name","Lastname");
+            if (!app.Cont.IsElementPresent(By.Name("selected[]")))
+            {
+                app.Cont.Add(newcontact);
+            }
+
             List<ContactData> oldContact = app.Cont.GetContactlist();
 
             app.Cont.Remove(1);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium;
 using NUnit.Framework;
 
 namespace addressbook_web_tests
@@ -16,6 +17,11 @@ namespace addressbook_web_tests
 
             List<ContactData> oldContact = app.Cont.GetContactlist();
             ContactData oldData = oldContact[0];
+
+            if(!app.Cont.IsElementPresent(By.Name("selected[]")))
+            {
+                app.Cont.Add(newData);
+            }
 
             app.Cont.Modify(0,newData);
 

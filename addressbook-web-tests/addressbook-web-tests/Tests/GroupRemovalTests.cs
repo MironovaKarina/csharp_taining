@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
+using OpenQA.Selenium;
 using NUnit.Framework;
 
 
@@ -14,6 +15,12 @@ namespace addressbook_web_tests
         [Test]
         public void GroupRemovalTest()
         {
+            GroupData newgroup = new GroupData("name");
+            if (!app.Groups.IsElementPresent(By.Name("selected[]")))
+            {
+                app.Groups.Create(newgroup);
+            }
+
             List<GroupData> oldGroups = GroupData.GetAll();
             GroupData toBeRemoved = oldGroups[0];
 
